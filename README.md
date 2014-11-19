@@ -4,6 +4,9 @@ A base class for your Backbone js views which provides a showModal() method.
 
 [See the demo page live in action on www.garethelms.org] (http://www.garethelms.org/demo/backbone-js-modal-dialog/demo.html)
 
+## I do a some changes as below (11/19/2014):   
+![some changes](./changes.png)
+
 ## How to use it
 
 Include [Backbone.ModalDialog.js](https://github.com/GarethElms/BackboneJSModalView/blob/master/Backbone.ModalDialog.js) in your html page. Make your Backbone view extend ModalView. Now you can call myView.render().showModal().
