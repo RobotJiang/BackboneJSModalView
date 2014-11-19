@@ -21,15 +21,34 @@ form {padding:20px;}
 label {padding-right:10px;}
 input[type=text] {margin-right:10px;}
 form table {margin-top:10px;}
-div.modal-header {text-align:left; padding:10px 23px; background-color:#e7f294;
+/*
+div.modal-header {text-align:left; padding:10px 23px; background-color: silver;
 	-moz-box-shadow: inset 0 0 2px 1px #A1B41D;
 	-webkit-box-shadow: inset 0 0 2px 1px #A1B41D;
 	box-shadow: inset 0 0 2px 1px #A1B41D;
 	-webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px;
 	-moz-border-top-left-radius: 10px; -moz-border-top-right-radius: 10px;
-	border-top-left-radius: 10px; border-top-right-radius: 10px;}
+	border-top-left-radius: 10px; border-top-right-radius: 10px;
+}*/
 	
 #sidebar {float:right; width:230px; padding-top:10px;}
 .error-message {color:red; font-size:75%; font-weight:bold; margin:0 0 .5em;}
 .error {border:1px solid red;}
 td {vertical-align:top;}
+
+.save_btn {
+	padding: 8px 8px;
+	font-size: 25px;
+	text-align: center;
+	background-color: #A2A2A5;
+	color: #F5F5F5;
+	border-radius: 3px;
+	width: 100%;
+	border: none;
+	font-weight: bold;
+}
+.save_btn:hover {
+	color: #FBAD18;
+	background-color: #545456;
+}
+
