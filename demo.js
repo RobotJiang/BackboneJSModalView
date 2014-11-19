@@ -19,10 +19,11 @@ PeopleCollection = Backbone.Collection.extend(
 	
 AddPersonView = Backbone.ModalView.extend(
 	{
+		title: "Add a new person to the list",
 		name: "AddPersonView",
 		model: PersonModel,
 		templateHtml:
-			"<div class='modal-header'>Add a new person to the list</div>" +
+			//"<div class='modal-header'>Add a new person to the list</div>" +
 			"<form>" +
                 "<table class='compact'>" +
                     "<tr><td>" +
@@ -41,9 +42,9 @@ AddPersonView = Backbone.ModalView.extend(
 				        "<input type='text' id='phone' />" +
                     "</td></tr>" +
                     "<tr><td></td><td>" +
-				        "<input id='addPersonButton' type='submit' value='Add person' />" +
+										/*"<input id='addPersonButton' type='submit' value='Add person' />" +*/
                     "</td></tr>" +
-                "</table>" +
+                "" +
 			"</form>",
 		initialize:
 			function()
@@ -55,7 +56,7 @@ AddPersonView = Backbone.ModalView.extend(
 		events:
 			{
 			     "change #email": "validateEmail",
-				"submit form": "addPerson"
+					 /*"submit form": "addPerson"*/
 			},
 		getCurrentFormValues:
 			function()
@@ -93,17 +94,26 @@ AddPersonView = Backbone.ModalView.extend(
 				
 				$errorMessage.empty().append( errorMessage);
 			},
-		addPerson:
-			function( event)
-			{
+		save: function(event) {
+				console.log(event);
 				event.preventDefault();
-				
 				if( this.model.set( this.getCurrentFormValues()))
 				{
 					this.hideModal();
 					_people.add( this.model);
 				}
-			},
+		},
+		/*addPerson:*/
+		/*function(event)*/
+		/*{*/
+		/*event.preventDefault();*/
+
+		/*if( this.model.set( this.getCurrentFormValues()))*/
+		/*{*/
+		/*this.hideModal();*/
+		/*_people.add( this.model);*/
+		/*}*/
+		/*},*/
 			
 		render:
 			function()

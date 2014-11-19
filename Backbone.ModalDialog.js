@@ -32,13 +32,13 @@ Backbone.ModalView =
             css:
             {
                 "border": "2px solid #111",
-			    "background-color": "#fff",
-			    "-webkit-box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
-			    "-moz-box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
-			    "box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
-                "-webkit-border-radius": "10px",
-                "-moz-border-radius": "10px",
-                "border-radius": "10px"
+			    			"background-color": "#fff",
+			    			"-webkit-box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
+			    			"-moz-box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
+			    			"box-shadow": "0px 0px 15px 4px rgba(0, 0, 0, 0.5)",
+                "-webkit-border-radius": "5px",
+                "-moz-border-radius": "5px",
+                "border-radius": "5px"
             }
 		},
 
@@ -84,7 +84,9 @@ Backbone.ModalView =
                                 "position":"relative",
                                 "-webkit-border-radius": "6px",
                                 "-moz-border-radius": "6px",
-                                "border-radius": "6px"
+                                "border-radius": "6px",
+																"width": "700px",
+																"height": "500px"
                                 })
                             .appendTo( target);
                 }
@@ -187,7 +189,6 @@ Backbone.ModalView =
                 {
                     var value = css[coordinate];
                     delete css[coordinate]; // Don't apply positioning to the $el, we apply it to the modal container. Remove it from options.css
-
                     return value;
                 }
             },
@@ -236,13 +237,19 @@ Backbone.ModalView =
                 return {x:offsetX, y:offsetY};
             },
 
+				save:
+						function(e)
+						{
+							/* children views can overwrite this method */
+							console.log('You clicked save button.');
+						},
         showModal:
             function( options)
             {
                 this.defaultOptions.targetContainer = document.body;
                 this.options = $.extend( true, {}, this.defaultOptions, options, this.options);
 
-				if( this.options.permanentlyVisible)
+								if( this.options.permanentlyVisible)
                 {
                     this.options.showCloseButton = false;
                     this.options.backgroundClickClosesModal = false;
@@ -251,12 +258,30 @@ Backbone.ModalView =
 
                 //Set the center alignment padding + border see css style
                 var $el = $(this.el);
+								if(typeof this.title !== 'undefined') {
+									var title_el = $("<div class='modal-header'></div>").html(this.title).css({
+										"text-align": "left",
+										"padding": "10px 23px", 
+										"background-color": "silver",
+										"border-top-left-radius": "3px"
+									});
+									$el.prepend(title_el)
 
-				var centreY = $(window).height() / 2;
+									var save_btn = $("<input class='save_btn' type='button' value='Save'/>")
+									var _that = this;
+									save_btn.bind('click', function(event) {
+										_that.save.apply(_that, [event]); 
+									});
+									$el.append($("<div style='padding: 10px' />").append(save_btn));
+									
+									
+								}
+
+								var centreY = ($(window).height() / 2) - 200;
                 var centreX = $(window).width() / 2;
                 var modalContainer = this.ensureModalContainer( this.options.targetContainer).empty();
 		
-		        $el.addClass( "modal");
+		        		$el.addClass( "modal");
 
                 var coords = {
                     top: this.getCoordinate( "top", this.options.css),
@@ -266,7 +291,7 @@ Backbone.ModalView =
                     isEmpty: function(){return (this.top == null && this.left == null && this.right == null && this.bottom == null);}
                     };
 
-				$el.css( this.options.css);
+								$el.css( this.options.css);
 
                 this.showModalBlanket();
                 this.keyup = _.bind( this.keyup, this);
@@ -283,12 +308,14 @@ Backbone.ModalView =
                 modalContainer
                     .append( $el);
 
+                
+
                 modalContainer.css({
                         "opacity": 0,
                         "position": "absolute",
                         "z-index": 999999});
 
-				var offsets = this.getOffsets();
+								var offsets = this.getOffsets();
 
                 // Only apply default centre coordinates if no css positions have been supplied
                 if( coords.isEmpty())
@@ -296,7 +323,7 @@ Backbone.ModalView =
                     var positionY = centreY  - ($el.outerHeight() / 2);
                     if( positionY < 10) positionY = 10;
 
-					// Overriding the coordinates with explicit values if they are passed in
+										// Overriding the coordinates with explicit values if they are passed in
                     if( typeof( this.options.y) !== "undefined")
                     {
                         positionY = this.options.y;
@@ -309,7 +336,7 @@ Backbone.ModalView =
                     modalContainer.css({"top": positionY + "px"});
 
                     var positionX = centreX - ($el.outerWidth() / 2);
-					// Overriding the coordinates with explicit values if they are passed in
+										// Overriding the coordinates with explicit values if they are passed in
                     if( typeof( this.options.x) !== "undefined")
                     {
                         positionX = this.options.x;
@@ -382,6 +409,6 @@ Backbone.ModalView =
 
                 this.modalContainer.animate( animateProperties, this.options.fadeInDuration);
 
-				return this;
+								return this;
             }
     });

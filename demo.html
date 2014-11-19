@@ -57,10 +57,11 @@ $(document).ready(
 				// Create the modal view
 				var model = new PersonModel();
 				var view = new AddPersonView( {model:model});
-				view.render().showModal({
+				/*view.render().showModal({
 						x: event.pageX,
 						y: event.pageY
-					});
+					});*/
+				view.render().showModal({});
 			});
 
 		_people = new PeopleCollection();
